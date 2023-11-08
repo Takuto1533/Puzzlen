@@ -1,1 +1,59 @@
-a
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>ぱずるん</title>
+        <link rel="stylesheet" type="text/css" href="puzzlen" />
+    </head>
+
+    <script>
+    function gameStart(){
+        document.querySelector("#start").style.display = "none";
+        document.querySelector("#game").style.display = "block";
+    }
+    function backtitle(){
+        document.querySelector("#game").style.display = "none";
+        document.querySelector("#start").style.display = "block";
+    }
+    </script>
+    <script type="text/javascript" src = "cstage1.js"></script>
+
+    <body>
+        <div id="start" style="text-align: center;">
+            <br> <br>
+            <h1>ぱずるん</h1>
+            <br> <br>
+            <button onclick="gameStart()">スタート</button>
+            <br>
+            <button type="button" name="continue">つづきから</button>
+        </div>
+        
+        <div id="game" style="text-align: left; display: none">
+            <button onclick="backtitle()">⇐</button>
+            <div style="text-align: center;">
+                <h1>ステージ選択</h1>
+                <br> 
+                <button onclick="gostage1()">1</button>
+                <button type="button" name="stage2">2</button>
+                <button type="button" name="stage3">3</button>
+                <button type="button" name="stage4">4</button>
+                <button type="button" name="stage5">5</button>
+                <br>
+                <button type="button" name="stage6">6</button>
+                <button type="button" name="stage7">7</button>
+                <button type="button" name="stage8">8</button>
+                <button type="button" name="stage9">9</button>
+                <button type="button" name="stage10">10</button>
+            </div>
+        </div>
+    </body>
+    <body onload = init()> 
+        
+        <div id="stage1" style="text-align: left; display: none">
+            <button onclick="backstage1()">⇐</button>
+        <div style="text-align: center;">
+            <h1>ステージ1</h1> 
+            <canvas id = 'canvas' width = 1500 height = 510> </canvas>
+        </div> 
+    </body>
+</html>
