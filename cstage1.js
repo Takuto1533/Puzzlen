@@ -11,12 +11,13 @@ function backstage1(){
 var ban = [
     [0, 0, 0, 0],
     [2, 1, 1, 0],
-    [0, 0, 1, 1],
+    [0, 0, 1, 3],
     [0, 0, 0, 0]
 ];
 var ctx;
 var masu;
 var goal;
+var komaG;
 function init() {
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext("2d");
@@ -29,6 +30,9 @@ masu = new Image();
 masu.src = "masu.png";
 goal = new Image();
 goal.src = "goal.png";
+komaG = new Image();
+komaG.src = "komaG.png";
+
 function mkban() {
     var i; 
     var j;
@@ -36,7 +40,7 @@ function mkban() {
         for (j = 0; j < 4; j++) {
             if (ban[j][i] == 1) ctx.drawImage(masu, i*100, j*100);
             if (ban[j][i] == 2) ctx.drawImage(goal, i*100, j*100);
+            if (ban[j][i] == 3) ctx.drawImage(komaG, i*100, j*100);
         }
     }
- 
 }
