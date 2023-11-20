@@ -47,28 +47,27 @@ function init() {
 }
 
 function mkban() {
-    var i; 
-    var j;
-    for (i = 0; i < 6; i++) {
-        for (j = 0; j < 4; j++) {
-            if (ban[j][i] == 0) ctx.drawImage(white, i*100, j*100);
-            if (ban[j][i] == 1) ctx.drawImage(masu, i*100, j*100);
-            if (ban[j][i] == 2) ctx.drawImage(goal, i*100, j*100);
-            if (ban[j][i] == 3 || ban[j][i] == 4) ctx.drawImage(komaG, i*100, j*100);
+    var x; 
+    var y;
+    for (y = 0; y < 4; y++) {
+        for (x = 0; x < 6; x++) {
+            if (ban[y][x] == 0) ctx.drawImage(white, x*100, y*100);
+            if (ban[y][x] == 1 || ban[y][x] == 5) ctx.drawImage(masu, x*100, y*100);
+            if (ban[y][x] == 2) ctx.drawImage(goal, x*100, y*100);
+            if (ban[y][x] == 3 || ban[y][x] == 4) ctx.drawImage(komaG, x*100, y*100);
         }
     }
  
 }
 
 function Onkeydown(e) {
-
     console.log('##');
     if (e.key === 'ArrowRight') {
-        if (ban[posy][posx + 1] == 1 || ban[posy][posx + 1] == 2 ) {
+        if (ban[posy][posx + 1] == 1 || ban[posy][posx - 1] == 2) {
             ban[posy][posx] -= 3;
             posx++;
             ban[posy][posx] += 3;
-        }    
+        }       
     }
     if (e.key === 'ArrowLeft') {
         if (ban[posy][posx - 1] == 1 || ban[posy][posx - 1] == 2 ) {
@@ -92,5 +91,23 @@ function Onkeydown(e) {
         } 
     }    
     mkban();
+    chkclear();
 }
+
+function chkclear() {
+    var x;
+    var y;
+    var count = 0;
+    for (y = 0; y < 4; y++) {
+        for (x = 0; x < 6; x++) {
+            if (ban[y][x] == 2) 
+            count++;
+        }  
+    }
+    if (count == 0) {
+        ctx.fillStyle = "red";
+        ctx.font = "50px serif";
+        ctx.fillText("ステージ　クリア", 100, 100);
+    }
+ } 
 
