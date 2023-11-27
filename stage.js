@@ -1,19 +1,4 @@
-function gostage1(){
-    document.querySelector("#game").style.display = "none"; 
-    document.querySelector("#stage1").style.display = "block";
-}
-
-function backstage1(){
-    document.querySelector("#stage1").style.display = "none";
-    document.querySelector("#game").style.display = "block";
-}
-
-var ban = [
-    [0, 0, 0, 0, 0, 0],
-    [0, 2, 1, 1, 0, 0],
-    [0, 0, 0, 1, 1, 0],
-    [0, 0, 0, 0, 0, 0]
-];
+var ban;
 var ctx;
 var white;
 var masu;
@@ -22,6 +7,8 @@ var komaG;
 
 var posx;
 var posy;
+
+var CountDownValue = 4;
 
 white = new Image();
 white.src = "white.png"; 
@@ -32,6 +19,27 @@ goal.src = "goal.png";
 komaG = new Image();
 komaG.src = "komaG.png";
 
+function gostage1(){
+    document.querySelector("#game").style.display = "none"; 
+    document.querySelector("#stage1").style.display = "block";
+    
+    ban = [
+        [0, 0, 0, 0, 0, 0],
+        [0, 2, 1, 1, 0, 0],
+        [0, 0, 0, 1, 1, 0],
+        [0, 0, 0, 0, 0, 0]
+    ];
+
+    posx = 4; posy = 2;
+    ban[posy][posx] = 4;
+    mkban();
+}
+
+function backstage1(){
+    document.querySelector("#stage1").style.display = "none";
+    document.querySelector("#game").style.display = "block";
+}
+
 function init() {
 
     canvas = document.getElementById('canvas');
@@ -41,9 +49,6 @@ function init() {
     canvas.setAttribute("tabindex", 0);
     canvas.addEventListener("keydown", Onkeydown, false);
 
-    posx = 4; posy = 2;
-    ban[posy][posx] = 4;
-    mkban();
 }
 
 function mkban() {
@@ -67,7 +72,7 @@ function Onkeydown(e) {
             ban[posy][posx] -= 3;
             posx++;
             ban[posy][posx] += 3;
-        }       
+        }  
     }
     if (e.key === 'ArrowLeft') {
         if (ban[posy][posx - 1] == 1 || ban[posy][posx - 1] == 2 ) {
@@ -107,7 +112,6 @@ function chkclear() {
     if (count == 0) {
         ctx.fillStyle = "red";
         ctx.font = "50px serif";
-        ctx.fillText("ステージ　クリア", 100, 100);
+        ctx.fillText("ステージ　クリア", 100, 50);
     }
  } 
-
