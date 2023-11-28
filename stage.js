@@ -8,6 +8,8 @@ var komaG;
 var posx;
 var posy;
 
+var count;
+
 var CountDownValue = 4;
 
 white = new Image();
@@ -31,12 +33,23 @@ function gostage1(){
     ];
 
     posx = 4; posy = 2;
-    ban[posy][posx] = 4;
+    ban[posy][posx] = 3;
     mkban();
+    chkclear();
 }
 
 function backstage1(){
     document.querySelector("#stage1").style.display = "none";
+    document.querySelector("#game").style.display = "block";
+}
+
+function gostage2(){
+    document.querySelector("#game").style.display = "none"; 
+    document.querySelector("#stage2").style.display = "block";
+}
+
+function backstage2(){
+    document.querySelector("#stage2").style.display = "none";
     document.querySelector("#game").style.display = "block";
 }
 
@@ -57,9 +70,9 @@ function mkban() {
     for (y = 0; y < 4; y++) {
         for (x = 0; x < 6; x++) {
             if (ban[y][x] == 0) ctx.drawImage(white, x*100, y*100);
-            if (ban[y][x] == 1 || ban[y][x] == 5) ctx.drawImage(masu, x*100, y*100);
+            if (ban[y][x] == 1) ctx.drawImage(masu, x*100, y*100);
             if (ban[y][x] == 2) ctx.drawImage(goal, x*100, y*100);
-            if (ban[y][x] == 3 || ban[y][x] == 4) ctx.drawImage(komaG, x*100, y*100);
+            if (ban[y][x] == 3) ctx.drawImage(komaG, x*100, y*100);
         }
     }
  
@@ -67,34 +80,57 @@ function mkban() {
 
 function Onkeydown(e) {
     console.log('##');
-    if (e.key === 'ArrowRight') {
-        if (ban[posy][posx + 1] == 1 || ban[posy][posx - 1] == 2) {
-            ban[posy][posx] -= 3;
-            posx++;
-            ban[posy][posx] += 3;
-        }  
+    if (count >= 1) {
+        if (e.key === 'ArrowRight') {
+            if (ban[posy][posx + 1] == 1) {
+                ban[posy][posx] = 1;
+                posx++;
+                ban[posy][posx] = 3;
+            } else if (ban[posy][posx + 1] == 2) {
+                ban[posy][posx] = 1;
+                posx++;
+                ban[posy][posx] = 1;
+            }  
+        }
+        if (e.key === 'ArrowLeft') {
+            if (ban[posy][posx - 1] == 1) {
+                ban[posy][posx] = 1;
+                posx--;
+                ban[posy][posx] = 3;
+            } else if (ban[posy][posx - 1] == 2) {
+                ban[posy][posx] = 1;
+                posx--;
+                ban[posy][posx] = 1;
+            }  
+        }
+        if (e.key === 'ArrowUp') {
+            if (ban[posy - 1][posx] == 1) {
+                ban[posy][posx] = 1;
+                posy--;
+                ban[posy][posx] = 3;
+            } else if (ban[posy - 1][posx] == 2) {
+                ban[posy][posx] = 1;
+                posx--;
+                ban[posy][posx] = 1;
+            }  
+        }
+        if (e.key === 'ArrowDown') {
+            if (ban[posy + 1][posx] == 1) {
+                ban[posy][posx] = 1;
+                posy++;
+                ban[posy][posx] = 3;
+            } else if (ban[posy + 1][posx] == 2) {
+                ban[posy][posx] = 1;
+                posx++;
+                ban[posy][posx] = 1;
+            }  
+        }    
+        
+    } else if (count == 0) {
+        if (e.key === 'ArrowRight' || 'ArrowLeft' || 'ArrowUp' || 'ArrowDown') {
+            backstage1();
+        }
     }
-    if (e.key === 'ArrowLeft') {
-        if (ban[posy][posx - 1] == 1 || ban[posy][posx - 1] == 2 ) {
-            ban[posy][posx] -= 3;
-            posx--;
-            ban[posy][posx] += 3;
-        } 
-    }
-    if (e.key === 'ArrowUp') {
-        if (ban[posy - 1][posx] == 1 || ban[posy - 1][posx] == 2 ) {
-            ban[posy][posx] -= 3;
-            posy--;
-            ban[posy][posx] += 3;
-        } 
-    }
-    if (e.key === 'ArrowDown') {
-        if (ban[posy + 1][posx] == 1 || ban[posy + 1][posx] == 2 ) {
-            ban[posy][posx] -= 3;
-            posy++;
-            ban[posy][posx] += 3;
-        } 
-    }    
     mkban();
     chkclear();
 }
@@ -102,7 +138,7 @@ function Onkeydown(e) {
 function chkclear() {
     var x;
     var y;
-    var count = 0;
+    count = 0;
     for (y = 0; y < 4; y++) {
         for (x = 0; x < 6; x++) {
             if (ban[y][x] == 2) 
@@ -114,4 +150,4 @@ function chkclear() {
         ctx.font = "50px serif";
         ctx.fillText("ステージ　クリア", 100, 50);
     }
- } 
+} 
